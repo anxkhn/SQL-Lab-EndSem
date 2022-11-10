@@ -72,8 +72,7 @@ Q3. Find the minimum and maximum sell price of products.
 SELECT MIN(sell_price) AS smallest_price
 FROM product_master;
 
-SELECT MAX(sell_price) AS largest_price
-FROM product_master;
+select description,sell_price from product_master where sell_price in (select  max(sell_price) from product_master);
 
 Q4. Find the product_no and description of moving products -use joins
 
