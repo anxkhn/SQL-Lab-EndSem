@@ -68,4 +68,36 @@ INSERT INTO sales_order VALUES ('O107','C001','2018-09-25',NULL,'S001','F','Y','
 INSERT INTO sales_order VALUES ('O188','C005','2018-09-19',NULL,'S001','P','N','2018-09-22','F');
 ```
 
+Q1. Retrieve the list of names, city, and State of all the Customers
+
+```sql
+SELECT Name,City,State from Customer_Info;
+```
+
+Q2. Change the name of Customer_info to Customer_Details
+
+```sql
+ALTER TABLE Customer_info RENAME TO Customer_Details;
+```
+
+Q3. Find the count of all the customers
+
+```sql
+SELECT COUNT(*) FROM Customer_Details;
+```
+
+Q4. Find the Customer name,city and pincode who as placed order no ‘O109’-use nested queries
+
+```sql
+Select Name,City,Pincode from Customer_Details WHERE Customer_id IN (SELECT Customer_id from sales_order WHERE orderno ='O109');
+```
+
+
+
+
+
+
+
+
+
 
