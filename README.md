@@ -92,7 +92,7 @@ Q4. Find the Customer name,city and pincode who as placed order no ‘O109’-us
 Select Name,City,Pincode from Customer_Details WHERE Customer_id IN (SELECT Customer_id from sales_order WHERE orderno ='O109');
 ```
 
-### Set 05 & Set 31:-
+# Set 05 & Set 31:-
 
 Q1: Create table employee ( eid, ename, address, city, pincode, salary)
 
