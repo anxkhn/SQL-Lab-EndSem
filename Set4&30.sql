@@ -38,19 +38,10 @@ values(old.fname,old.lname,new.fname,new.lname,curdate()
 );
 end;
 $$
-delimiter $$
-create trigger t2
-after update on person
-for each row
-begin
-insert into audit_log
-values(old.fname,old.lname,new.fname,new.lname,curdate()
-);
-end;
-$$
 
- update person set fname='anish' where id like 43;$$
+
+update person set fname='anish' where id like 43;$$
 update person set fname='anvay' where id like 63;$$
 update person set fname='aman' where id like 38;$$
-select *from audit_log;
+select * from audit_log;
 $$
