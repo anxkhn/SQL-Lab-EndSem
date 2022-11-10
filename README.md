@@ -155,4 +155,76 @@ Calling The Function *(to demonstrate)* :-
 SELECT *,CheckLevel(salary) AS STATUS FROM employee;
 ```
 
+# Set 03 & Set 29:-
+
+Q : Create table sales_order_details (s_order_no, product_no,qty_ordered,qty_disp,product_rate)
+Constraints: First letter of s_order_no must start with ‘O’, First letter of product_no must start with ‘P’,
+
+
+Create Table 
+
+```sql
+CREATE TABLE sales_order (
+  s_order_no varchar(6) PRIMARY KEY, 
+  product_no varchar(6) NOT NULL,
+  qty_ordered numeric(6), 
+  qty_disp numeric(6), 
+  product_rate numeric(10, 2),
+  CHECK (s_order_no like 'O%'),
+  CHECK (product_no like 'P%')
+);
+```
+
+Insert Into
+
+```sql
+INSERT INTO sales_order VALUES ('OR1610','P11212',5,2,500.00);
+INSERT INTO sales_order VALUES ('OR1121','P11112',10,5,10000.00);
+INSERT INTO sales_order VALUES ('OR7841','P00008',15,10,1500.00);
+INSERT INTO sales_order VALUES ('OR0007','P00067',20,10,25000.00);
+```
+
+
+
+Q : Create function that set the rate level to either ‘Cheap, Moderate, Expensive’ based on product_rate.
+
+
+
+RateCheck Function
+
+```sql
+DELIMITER $$
+
+CREATE FUNCTION RateCheck(product_rate int) 
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE stat VARCHAR(20);
+    IF product_rate > 20000 THEN
+        SET stat = 'Expensive';
+    ELSEIF (product_rate >= 5000 AND 
+            product_rate <= 20000) THEN
+        SET stat = 'Moderate';
+    ELSEIF product_rate < 5000 THEN
+        SET stat = 'Cheap';
+    END IF;
+    RETURN (stat);
+END $$
+
+DELIMITER ;
+```
+
+MISC : Deleting a user defined function
+
+```sql
+DROP FUNCTION FunctionName;
+DROP FUNCTION RateCheck;
+```
+
+Calling The Function *(to demonstrate)* :-
+
+```sql
+SELECT *,RateCheck(product_rate) AS Rate FROM sales_order;
+```
+
 
