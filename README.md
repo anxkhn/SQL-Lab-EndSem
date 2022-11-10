@@ -427,3 +427,113 @@ Q5 Write an SQL query to fetch the no. of workers for each department in the des
 ```sql
 SELECT DEPARTMENT, count(WORKER_ID) AS No_Of_Workers FROM Worker GROUP BY DEPARTMENT ORDER BY No_Of_Workers DESC;
 ```
+
+
+
+# Set 13 & Set 39:-
+
+### Table – Worker
+
+Create Table
+
+```sql
+CREATE TABLE Worker (
+ Worker_id numeric(10) PRIMARY KEY, 
+FIRST_NAME varchar(10) NOT NULL,
+ LAST_NAME varchar(10),
+ SALARY numeric(10), 
+JOINING_DATE date, 
+State varchar(15), 
+DEPARTMENT varchar(10)
+);
+```
+
+Insert Into
+
+```sql
+INSERT INTO Worker VALUES (1,'Monika','Arora',100000,'2014-02-20',NULL,'HR');
+INSERT INTO Worker VALUES (2,'Niharika','Verma',80000,'2014-06-11',NULL,'Admin');
+INSERT INTO Worker VALUES (3,'Vishal','Singhal',300000,'2014-02-20',NULL,'HR');
+INSERT INTO Worker VALUES (4,'Amitabh','Singh',500000,'2014-02-20',NULL,'Admin');
+INSERT INTO Worker VALUES (5,'Vivek','Bhati',500000,'2014-06-11',NULL,'Admin');
+INSERT INTO Worker VALUES (6,'Vipul','Diwan',200000,'2014-06-11',NULL,'Account');
+INSERT INTO Worker VALUES (7,'Satish','Kumar',75000,'2014-01-20',NULL,'Account');
+INSERT INTO Worker VALUES (8,'Geetika','Chauhan',90000,'2014-04-11',NULL,'Admin');
+```
+
+### Table – Bonus
+
+Create Table
+
+```sql
+CREATE TABLE Bonus (
+  Worker_id numeric(10) REFERENCES Worker(Worker_id),  
+  BONUS_DATE date, 
+  BONUS_AMOUNT numeric(10,2)
+);
+```
+
+Insert Into
+
+```sql
+INSERT INTO Bonus VALUES (1,'2016-02-20',5000);
+INSERT INTO Bonus VALUES (2,'2016-02-11',3000);
+INSERT INTO Bonus VALUES (3,'2016-02-20',4000);
+INSERT INTO Bonus VALUES (1,'2016-02-20',4500);
+INSERT INTO Bonus VALUES (2,'2016-02-11',3500);
+```
+
+### Table – Title
+
+Create Table
+
+```sql
+CREATE TABLE Title (
+  Worker_id numeric(10) REFERENCES Worker(Worker_id),  
+  WORKER_TITLE varchar(15), 
+  AFFECTED_FROM date
+);
+```
+
+Insert Into
+
+```sql
+INSERT INTO Title VALUES (1,'Manager','2016-02-20');
+INSERT INTO Title VALUES (2,'Executive','2016-02-11');
+INSERT INTO Title VALUES (8,'Executive','2016-02-11');
+INSERT INTO Title VALUES (5,'Manager','2016-02-11');
+INSERT INTO Title VALUES (4,'Asst. Manager','2016-02-11');
+INSERT INTO Title VALUES (7,'Executive','2016-02-11');
+INSERT INTO Title VALUES (6,'Lead','2016-02-11');
+INSERT INTO Title VALUES (3,'Lead','2016-02-11');
+```
+
+Q1. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.
+
+```sql
+SELECT FIRST_NAME from Worker WHERE FIRST_NAME LIKE '_____h';
+```
+
+Q2 Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.
+
+```sql
+SELECT * from Worker WHERE SALARY >=100000 && SALARY<500000;
+```
+
+Q3. Write an SQL query to fetch the count of employees working in the department ‘Account’.
+
+```sql
+SELECT DEPARTMENT, count(WORKER_ID) AS No_Of_Workers FROM Worker Where DEPARTMENT='Account';
+```
+
+Q4. Write an SQL query to print details of the Workers who are also Managers.
+
+```sql
+SELECT * FROM Worker WHERE WORKER_ID IN (SELECT WORKER_ID FROM TITLE WHERE WORKER_TITLE='Manager');
+```
+
+Q5. Describe Bonus Table
+
+```sql
+DESCRIBE Bonus;
+```
