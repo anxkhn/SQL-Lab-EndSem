@@ -30,7 +30,7 @@ INSERT INTO Customer_Info VALUES ('C001','Shamakant Navathe','Mumbai',400050,'Ma
 INSERT INTO Customer_Info VALUES ('C002','Namita Murty','Bangalore',560001,'Karnataka',35000.00);
 INSERT INTO Customer_Info VALUES ('C003','Kartik Mahadevan','Mumbai',400030,'Maharashtra',90000.00);
 INSERT INTO Customer_Info VALUES ('C004','Monisha mehta','Manglore',560050,'Karnataka',45000.00);
-INSERT INTO Customer_Info VALUES ('C005','Amit Desai','Chenna',780001,'Tamil Nadu',85000.00);
+INSERT INTO Customer_Info VALUES ('C005','Amit Desai','Chennai',780001,'Tamil Nadu',85000.00);
 ```
 
 Delete Row
@@ -95,9 +95,7 @@ Select Name,City,Pincode from Customer_Details WHERE Customer_id IN (SELECT Cust
 # Set 05 & Set 31:-
 
 Q1: Create table employee ( eid, ename, address, city, pincode, salary)
-
 Constraints: First letter of eid must start with ‘E’, ename should Not Null.
-
 Create Table
 
 ```sql
@@ -125,7 +123,6 @@ Q3 : Create function that set the credit level to either ‘Platinum, Silver, Go
 
 ```sql
 DELIMITER $$
-
 CREATE FUNCTION CheckLevel(salary int) 
 RETURNS VARCHAR(20)
 DETERMINISTIC
@@ -141,15 +138,11 @@ BEGIN
     END IF;
     RETURN (stat);
 END $$
-
 DELIMITER ;
 ```
 
 > Used creative liberty here.
-
-
-
-Calling The Function *(to demonstrate)* :-
+> Calling The Function *(to demonstrate)* :-
 
 ```sql
 SELECT *,CheckLevel(salary) AS STATUS FROM employee;
@@ -159,8 +152,6 @@ SELECT *,CheckLevel(salary) AS STATUS FROM employee;
 
 Q : Create table sales_order_details (s_order_no, product_no,qty_ordered,qty_disp,product_rate)
 Constraints: First letter of s_order_no must start with ‘O’, First letter of product_no must start with ‘P’,
-
-
 Create Table 
 
 ```sql
@@ -184,17 +175,11 @@ INSERT INTO sales_order VALUES ('OR7841','P00008',15,10,1500.00);
 INSERT INTO sales_order VALUES ('OR0007','P00067',20,10,25000.00);
 ```
 
-
-
 Q : Create function that set the rate level to either ‘Cheap, Moderate, Expensive’ based on product_rate.
-
-
-
 RateCheck Function
 
 ```sql
 DELIMITER $$
-
 CREATE FUNCTION RateCheck(product_rate int) 
 RETURNS VARCHAR(20)
 DETERMINISTIC
@@ -210,7 +195,6 @@ BEGIN
     END IF;
     RETURN (stat);
 END $$
-
 DELIMITER ;
 ```
 
@@ -227,4 +211,109 @@ Calling The Function *(to demonstrate)* :-
 SELECT *,RateCheck(product_rate) AS Rate FROM sales_order;
 ```
 
+# Set 08 & Set 34:-
 
+Customer_Info
+
+Create Table
+
+```sql
+CREATE TABLE Customer_Info (
+  Customer_id varchar(10) PRIMARY KEY, 
+  Name varchar(10) NOT NULL,
+  City varchar(10), 
+  Pincode numeric(8), 
+  State varchar(15), 
+  Balance numeric(10, 2),
+  CHECK (Customer_id like 'C%')
+);
+```
+
+Alter Table
+
+```sql
+ALTER TABLE Customer_Info
+MODIFY COLUMN Name varchar(25) NOT NULL;
+```
+
+Insert Queries
+
+```sql
+INSERT INTO Customer_Info VALUES ('C001','Shamakant Navathe','Mumbai',400050,'Maharashtra',100000.00);
+INSERT INTO Customer_Info VALUES ('C002','Namita Murty','Bangalore',560001,'Karnataka',35000.00);
+INSERT INTO Customer_Info VALUES ('C003','Kartik Mahadevan','Mumbai',400030,'Maharashtra',90000.00);
+INSERT INTO Customer_Info VALUES ('C004','Monisha mehta','Manglore',560050,'Karnataka',45000.00);
+INSERT INTO Customer_Info VALUES ('C005','Amit Desai','Chennai',780001,'Tamil Nadu',85000.00);
+```
+
+### sales_order
+
+Create Table
+
+```sql
+CREATE TABLE sales_order
+(orderno varchar(10) PRIMARY KEY CHECK(orderno like 'O%'),
+Customer_id varchar (10) REFERENCES Customer_info(Customer_id),
+orderdate date NOT NULL,
+delyaddress varchar(15),
+Salesman_id varchar(10),
+delytype char(1) check(delytype IN ('P','F')),
+billyn char(1),
+delydate date,
+check(delydate > orderdate),
+Orderstatus varchar (10) check (Orderstatus IN ('IP','F','BO','C'))
+);
+```
+
+Insert Into
+
+```sql
+INSERT INTO sales_order VALUES ('O101','C001','2018-06-12',NULL,'S001','F','N','2018-06-20','IP');
+INSERT INTO sales_order VALUES ('O109','C005','2018-06-25',NULL,'S002','P','N','2018-06-29','C');
+INSERT INTO sales_order VALUES ('O102','C003','2018-08-18',NULL,'S001','F','Y','2018-08-25','F');
+INSERT INTO sales_order VALUES ('O107','C001','2018-09-25',NULL,'S005','F','Y','2018-09-30','F');
+INSERT INTO sales_order VALUES ('O188','C005','2018-09-19',NULL,'S001','P','N','2018-09-22','F');
+```
+
+Q1. List all the customers who stay in ‘Mumbai’ and ‘Chennai’.
+
+```sql
+SELECT Name,City FROM Customer_info WHERE City="Mumbai" OR City="Chennai";
+```
+
+Q2. List the customers whose names contain with letters ‘am’.
+
+```sql
+SELECT * FROM Customer_info WHERE (Name LIKE '%am%');
+```
+
+Q3. Change the Balance of Customer_id ‘C002’ to 89000.00
+
+```sql
+UPDATE Customer_info
+SET balance = 89000.00
+WHERE customer_id = 'C002';
+```
+
+Q4. Find the minimum balance of customers.
+
+```sql
+SELECT Name,MIN(balance) AS Balance
+FROM Customer_info;
+```
+
+Q5. Create a view on a table in such a way that view contains orderno, Customer_id and orderdate.
+
+Creating :
+
+```sql
+CREATE VIEW myView AS
+SELECT orderno, Customer_id, orderdate
+FROM Sales_order;
+```
+
+Displaying
+
+```sql
+SELECT * FROM myView;
+```
