@@ -64,7 +64,7 @@ Insert Into
 INSERT INTO sales_order VALUES ('O101','C001','2018-06-12',NULL,'S001','F','N','2018-06-20','IP');
 INSERT INTO sales_order VALUES ('O109','C005','2018-06-25',NULL,'S002','P','N','2018-06-29','C');
 INSERT INTO sales_order VALUES ('O102','C003','2018-08-18',NULL,'S001','F','Y','2018-08-25','F');
-INSERT INTO sales_order VALUES ('O107','C001','2018-09-25',NULL,'S001','F','Y','2018-09-30','F');
+INSERT INTO sales_order VALUES ('O107','C001','2018-09-25',NULL,'S005','F','Y','2018-09-30','F');
 INSERT INTO sales_order VALUES ('O188','C005','2018-09-19',NULL,'S001','P','N','2018-09-22','F');
 ```
 
