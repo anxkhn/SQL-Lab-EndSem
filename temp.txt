@@ -1,0 +1,15 @@
+S11 
+5. Retrieve number of department
+12. Retrieve total salary of employee which is greater than >120000
+Divide the cost of product '540 HDD' by difference between its price and 100.
+
+Q: Find the products and their quantities for the orders placed by 'Vandana Saitwal' and 'Ivan Bayross'
+
+select name,description,qty_ordered from client_master,product_master,sales_order,sales_order_details where name in('Ivan Bayross','Vandana Saitwal') and client_master.client_no = sales_order.client_no and sales_order.order_no = sales_order_details.order_no and sales_order_details.product_no = product_master.product_no;
+
+Q: Print the description and total qty sold for each product
+
+ select description,sum(qty_ordered) from product_master,sales_order_details WHERE sales_order_details.product_no = product_master.product_no group by description;
+
+
+TODO : procedures CURSORS AND FUNCTIONS(SYNTAX)
