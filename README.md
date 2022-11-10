@@ -1,4 +1,6 @@
-### Set 2 & Set 28 :-
+# Set 2 & Set 28 :-
+
+### Customer_Info
 
 Create Table
 
@@ -35,6 +37,35 @@ Delete Row
 
 ```sql
 DELETE FROM Customer_Info WHERE Customer_id = 'C003';
+```
+
+### sales_order
+
+Create Table
+
+```sql
+CREATE TABLE sales_order
+(orderno varchar(10) PRIMARY KEY CHECK(orderno like 'O%'),
+Customer_id varchar (10) REFERENCES Customer_info(Customer_id),
+orderdate date NOT NULL,
+delyaddress varchar(15),
+Salesman_id varchar(10),
+delytype char(1) check(delytype IN ('P','F')),
+billyn char(1),
+delydate date,
+check(delydate > orderdate),
+Orderstatus varchar (10) check (Orderstatus IN ('IP','F','BO','C'))
+);
+```
+
+Insert Into 
+
+```sql
+INSERT INTO sales_order VALUES ('O101','C001','2018-06-12',NULL,'S001','F','N','2018-06-20','IP');
+INSERT INTO sales_order VALUES ('O109','C005','2018-06-25',NULL,'S002','P','N','2018-06-29','C');
+INSERT INTO sales_order VALUES ('O102','C003','2018-08-18',NULL,'S001','F','Y','2018-08-25','F');
+INSERT INTO sales_order VALUES ('O107','C001','2018-09-25',NULL,'S001','F','Y','2018-09-30','F');
+INSERT INTO sales_order VALUES ('O188','C005','2018-09-19',NULL,'S001','P','N','2018-09-22','F');
 ```
 
 
