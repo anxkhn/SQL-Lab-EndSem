@@ -25,11 +25,19 @@ qty_displayed decimal (8),
 product_rate decimal(10,2) , 
 CONSTRAINT PK_order PRIMARY KEY (s_order_no,product_no));
 
-insert into product_master values('P001','T-shirts',5,'Piece',200,50,350,250);
-insert into product_master values('P340','Shirts',7,'Piece',150,50,500,350);
-insert into product_master values('P671','Jeans',5,'Piece',100,20,600,450);
-insert into product_master values('P885','Trousers',5,'Piece',100,20,750,500);
-insert into product_master values('P005','Denim Shirts',2,'Piece',150,50,850,550);
+-- insert into product_master values('P001','T-shirts',5,'Piece',200,50,350,250);
+-- insert into product_master values('P340','Shirts',7,'Piece',150,50,500,350);
+-- insert into product_master values('P671','Jeans',5,'Piece',100,20,600,450);
+-- insert into product_master values('P885','Trousers',5,'Piece',100,20,750,500);
+-- insert into product_master values('P005','Denim Shirts',2,'Piece',150,50,850,550);
+
+-- modified ones are here.
+
+insert into product_master values('P00001','T-shirts',5,'Piece',200,50,350,250);
+insert into product_master values('P00340','Shirts',7,'Piece',150,50,500,350);
+insert into product_master values('P00671','Jeans',5,'Piece',100,20,600,450);
+insert into product_master values('P00885','Trousers',5,'Piece',100,20,750,500);
+insert into product_master values('P00005','Denim Shirts',2,'Piece',150,50,850,550);
 
 insert into sales_order (orderno,customer_id,orderdate,salesman_id, delytype,billyn,delydate,orderstatus) values('O101','C001','2018-06-12','S001','F','N','2018-06-20','IP');
 insert into sales_order (orderno,customer_id,orderdate,salesman_id, delytype,billyn,delydate,orderstatus) VALUES ('O109','C005','2018-06-25','S002','P','N','2018-06-29','C');
@@ -68,4 +76,9 @@ SELECT MAX(sell_price) AS largest_price
 FROM product_master;
 
 Q4. Find the product_no and description of moving products -use joins
+
+SELECT product_master.description,sales_order_details.product_no
+FROM product_master
+INNER JOIN sales_order_details
+ON product_master.product_no = sales_order_details.product_no;
 
