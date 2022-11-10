@@ -92,12 +92,67 @@ Q4. Find the Customer name,city and pincode who as placed order no ‘O109’-us
 Select Name,City,Pincode from Customer_Details WHERE Customer_id IN (SELECT Customer_id from sales_order WHERE orderno ='O109');
 ```
 
+### Set 05 & Set 31:-
+
+Q1: Create table employee ( eid, ename, address, city, pincode, salary)
+
+Constraints: First letter of eid must start with ‘E’, ename should Not Null.
+
+Create Table
+
+```sql
+CREATE TABLE employee (
+  eid varchar(6) PRIMARY KEY, 
+  ename varchar(10) NOT NULL,
+  address varchar(25), 
+  city varchar(10), 
+  pincode numeric(6), 
+  salary numeric(10, 2),
+  CHECK (eid like 'E%')
+);
+```
+
+Q2 : Insert suitable values.
+
+```sql
+INSERT INTO employee VALUES ('EMP001','Anas Khan','Mira Road','Mumbai',401107,100000.00);
+INSERT INTO employee VALUES ('EMP002','Ayesha N','Mumbai Central','Mumbai',400008,500000.00);
+INSERT INTO employee VALUES ('EMP003','Ninad Naik','Andheri','Mumbai',400069,100000.00);
+INSERT INTO employee VALUES ('EMP004','Edward Blu','OpenSea','NFT Land',100000,5000.00);
+```
+
+Q3 : Create function that set the credit level to either ‘Platinum, Silver, Gold’ based on salary earned.
+
+```sql
+DELIMITER $$
+
+CREATE FUNCTION CheckLevel(salary int) 
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE stat VARCHAR(20);
+    IF salary > 200000 THEN
+        SET stat = 'Platinum';
+    ELSEIF (salary >= 10000 AND 
+            salary <= 200000) THEN
+        SET stat = 'Gold';
+    ELSEIF salary < 10000 THEN
+        SET stat = 'Silver';
+    END IF;
+    RETURN (stat);
+END $$
+
+DELIMITER ;
+```
+
+> Used creative liberty here.
 
 
 
+Calling The Function *(to demonstrate)* :-
 
-
-
-
+```sql
+SELECT *,CheckLevel(salary) AS STATUS FROM employee;
+```
 
 
