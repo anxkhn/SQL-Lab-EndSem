@@ -517,7 +517,7 @@ SELECT FIRST_NAME from Worker WHERE FIRST_NAME LIKE '_____h';
 Q2 Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.
 
 ```sql
-SELECT * from Worker WHERE SALARY >=100000 && SALARY<500000;
+SELECT * from Worker WHERE SALARY BETWEEN 100000 AND 500000;
 ```
 
 Q3. Write an SQL query to fetch the count of employees working in the department ‘Account’.
