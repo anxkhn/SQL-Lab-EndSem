@@ -1,5 +1,5 @@
 # SQL EndSem 
-Inforamtion Technology SEM 3 Mumbai University REV C-19
+Information Technology SEM 3 Mumbai University REV C-19
 <br>
 [Sample Questions](assignment.pdf)
 <br>[Solutions](ANSWERS.md)
