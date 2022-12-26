@@ -724,3 +724,6 @@ select name,description,qty_ordered from client_master,product_master,sales_orde
 Q: Print the description and total qty sold for each product
 
  select description,sum(qty_ordered) from product_master,sales_order_details WHERE sales_order_details.product_no = product_master.product_no group by description;
+
+
+### [Link to questions](assignment.pdf)
