@@ -1,6 +1,0 @@
-
-- Structured Query Language or SQL is a standard Database language which is used to create, maintain and retrieve the data from relational databases like MySQL, Oracle, SQL Server.
-- Relational database means the data is stored as well as retrieved in the form of relations (tables).
-- Attribute: Attributes are the properties that define a relation. e.g.; ROLL_NO, NAME etc.
-- Tuple: Each row in the relation is known as tuple.
--PL SQL (Procedural SQL) : what to do + how to do includes fuction,procedure, cursor, cursor.
