@@ -1,9 +1,10 @@
-SQL EndSem - Inforamtion Technology SEM 3 Mumbai University REV C-19
+# SQL EndSem 
+Inforamtion Technology SEM 3 Mumbai University REV C-19
 <br>
 [Sample Questions](assignment.pdf)
-<br>[Answers](ANSWERS.md)
+<br>[Solutions](ANSWERS.md)
 
-# Misc Basics
+## Basic Structure
 
 Function
 
@@ -98,5 +99,5 @@ delimiter ;
 Cursor
 
 ```sql
-	   TODO
+TODO
 ```
